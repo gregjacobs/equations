@@ -3,7 +3,7 @@ Simple test program that I put together for resolving and expanding dependent va
 
 ### Motivation
 
-This came up at work one day, where we needed to substitute variables in a set of equations with the values of
+This came up at work one day, where we needed to substitute variables in a set of equations with the expressions of
 other equations. In the interest of time, we simply went with a top-down regular expression parsing / map lookup 
 based routine of expanding the variables, where the dependent equations needed to exist before the ones that 
 depended on them.
@@ -53,4 +53,4 @@ any cycles in the graph, in which case it prints out an error message and the cy
 ### Running 
 
 If you're interested in running the program, you'll need [Node.js](http://nodejs.org) installed. Clone the repository,
-execute `npm install` from the command line from within the directory, and then run `node equations.js`. 
+execute `npm install` from the command line from within the directory, and then run `node equations.js`
