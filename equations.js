@@ -8,7 +8,7 @@
  *     C=1
  *     D=A+B
  * 
- * We want to "expand" the variables in each of the expressions in dependency order. This program
+ * We want to "expand" the variables in each of the equations in dependency order. This program
  * performs this operation. The output from above would be:
  * 
  *     A=1+5+2
@@ -16,31 +16,31 @@
  *     C=1
  *     D=1+5+2+1+5
  *    
- * Cycles in the input expressions are handled as well by printing an error message.
+ * Cycles in the input equations are handled as well by printing an error message.
  */
 
 var _ = require( 'lodash' ),
-    ExpressionResolver = require( './classes/ExpressionResolver' );
+    EquationResolver = require( './classes/EquationResolver' );
 
-var inputExpressions = {
+var inputEquations = {
 	"A" : "B+2",
 	"B" : "C+5",
 	"C" : "1",
 	"D" : "A+B"
 };
 
-// First print the input expressions
-console.log( "Input Expressions:\n" + expressionsToString( inputExpressions ) + "\n" );
+// First print the input equations
+console.log( "Input Equations:\n" + equationsToString( inputEquations ) + "\n" );
 
 
-// Now print the output expressions
-var expressionResolver = new ExpressionResolver( inputExpressions );
-if( expressionResolver.hasCycle() ) {
-	console.log( "Expressions have a cycle, cannot resolve. Cycle: " + expressionResolver.getCycle().join( "->" ) );
+// Now print the output equations, or an error message if there is a cycle
+var equationResolver = new EquationResolver( inputEquations );
+if( equationResolver.hasCycle() ) {
+	console.log( "Equations have a cycle, cannot resolve. Cycle: " + equationResolver.getCycle().join( "->" ) );
 	
 } else {
-	var expandedExpressions = expressionResolver.getExpandedExpressions();
-	console.log( "Output (Expanded) Expressions:\n" + expressionsToString( expandedExpressions ) );
+	var expandedEquations = equationResolver.getExpandedEquations();
+	console.log( "Output (Expanded) Equations:\n" + equationsToString( expandedEquations ) );
 }
 
 
@@ -49,7 +49,7 @@ if( expressionResolver.hasCycle() ) {
 // Utility functions
 
 /**
- * Takes an input map of expressions and creates a string can be pretty-printed to the console.
+ * Takes an input map of equations and creates a string can be pretty-printed to the console.
  * 
  * Example input map:
  *     
@@ -60,17 +60,17 @@ if( expressionResolver.hasCycle() ) {
  *         'D' : 'A+B'
  *     }
  * 
- * @param {Object} expressions An Object (map) keyed by the expression name, and whose values are the expressions
+ * @param {Object} equations An Object (map) keyed by the equation name, and whose values are the equations
  *   themselves.
- * @return {String} A stringified form of the `expressions` that can be printed to the console.
+ * @return {String} A stringified form of the `equations` that can be printed to the console.
  */
-function expressionsToString( expressions ) {
-	// Loop in the correct order of the expressions by name, looking up the expressions as we go
-	var orderedKeys = _.keys( expressions ).sort(),
+function equationsToString( equations ) {
+	// Loop in the correct order of the equations by name, looking up the equations as we go
+	var orderedKeys = _.keys( equations ).sort(),
 	    stringBuilder = [];
 	
 	_.forEach( orderedKeys, function( key ) {
-		stringBuilder.push( key + "=" + expressions[ key ] );
+		stringBuilder.push( key + "=" + equations[ key ] );
 	} );
 	return stringBuilder.join( "\n" );
 }
