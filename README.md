@@ -1,11 +1,11 @@
-Simple test program that I put together for resolving dependent variables in a set of equations.
+Simple test program that I put together for resolving and expanding dependent variables in a set of equations.
 
 
-## Motivation
+### Motivation
 
 This came up at work one day, where we needed to substitute variables in a set of equations with the values of
 other equations. In the interest of time, we simply went with a top-down regular expression parsing / map lookup 
-based routine of "expanding" the variables, where the dependent equations needed to exist before the ones that 
+based routine of expanding the variables, where the dependent equations needed to exist before the ones that 
 depended on them.
 
 For Example:
@@ -27,7 +27,7 @@ C = (1) + (1 + 2) + 3
 So in my free time, I set out to solve this "variable expanding" problem in a way that wouldn't rely on the order in
 which the equations were specified. 
 
-For Example:
+Example:
 
 ```javascript
 // Input equations
@@ -47,10 +47,10 @@ D = (1 + 5 + 2) + (1 + 5)
 
 The solution that I came up with is a simple graph-based topological sort of the dependent variables in the equations,
 in which the variables are then substituted with their dependencies in the correct order. It also detects if there are
-any cycles in the dependencies, in which case it writes out an error message and the cycle.
+any cycles in the graph, in which case it prints out an error message and the cycle.
 
 
-## Running 
+### Running 
 
 If you're interested in running the program, you'll need [Node.js](http://nodejs.org) installed. Clone the repository,
-execute `npm install` on the command line from within the directory, and then run `node equations.js`. 
+execute `npm install` from the command line from within the directory, and then run `node equations.js`. 
