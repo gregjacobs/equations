@@ -1,0 +1,16 @@
+{
+  "name": "equations",
+  "version": "0.1.0",
+  "description": "Simple test program for resolving and expanding dependent variables in a set of equations.",
+  "main": "equations.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": "",
+  "author": "Gregory Jacobs",
+  "license": "MIT",
+  "readmeFilename": "README.md",
+  "dependencies": {
+    "lodash": "~2.4.1"
+  }
+}
